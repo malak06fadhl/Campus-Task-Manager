@@ -1,0 +1,5 @@
+node_modules/
+studybalance.db
+studybalance.db-shm
+studybalance.db-wal
+.env

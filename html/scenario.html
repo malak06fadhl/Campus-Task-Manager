@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyBalance — What-If Scenario</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <div class="page-shell">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark">⚖️</div>
+        <span class="sidebar-logo-text">StudyBalance</span>
+      </a>
+      <nav class="sidebar-nav">
+        <span class="sidebar-nav-label">Main Menu</span>
+        <a href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
+        <a href="courses.html"><span class="nav-icon">📚</span> Courses</a>
+        <a href="task-management.html"><span class="nav-icon">✅</span> Tasks</a>
+        <a href="analytics.html"><span class="nav-icon">📊</span> Analytics</a>
+        <a href="heatmap.html"><span class="nav-icon">🗓️</span> Heatmap</a>
+        <a href="scenario.html"><span class="nav-icon">📈</span> What-If Scenario</a>
+        <span class="sidebar-nav-label">Account</span>
+        <a href="profile.html"><span class="nav-icon">👤</span> Profile</a>
+      </nav>
+    </aside>
+
+    <!-- ── Page body ── -->
+    <div class="page-body">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="search" placeholder="Search tasks…" id="topbarSearch" />
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-ghost btn-icon" title="Notifications" aria-label="Notifications">🔔</button>
+          <div class="user-chip">
+            <div class="user-avatar">A</div>
+            <div class="user-chip-info">
+              <span class="user-chip-name">Student</span>
+              <span class="user-chip-role">Student</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+
+        <!-- Page header -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">What-If Scenario Simulator</h1>
+            <p class="page-subtitle">Simulate deadline changes before they become a problem.</p>
+          </div>
+        </div>
+
+        <!-- How it works banner -->
+        <div class="alert alert-info">
+          <span class="alert-icon">💡</span>
+          <div>
+            <strong>How it works:</strong> Select a task and propose a new deadline.
+            The simulator compares how many tasks fall in the <em>current</em> deadline's week
+            versus the <em>proposed</em> week, then tells you whether the change is safe or risky.
+          </div>
+        </div>
+
+        <!-- Two-column layout: form left, result right -->
+        <div class="scenario-layout">
+
+          <!-- Simulator form card -->
+          <div class="widget">
+            <div class="widget-header">
+              <span class="widget-title">📋 Simulate a Deadline Change</span>
+            </div>
+
+            <!-- No tasks empty state -->
+            <div id="scenarioEmpty" style="display:none;">
+              <div class="empty-state">
+                <div class="empty-icon">📝</div>
+                <div class="empty-title">No tasks found</div>
+                <div class="empty-desc">Add tasks on the Tasks page first, then come back to simulate deadline changes.</div>
+                <a href="task-management.html" class="btn btn-primary" style="margin-top:16px;">Go to Tasks →</a>
+              </div>
+            </div>
+
+            <form id="scenarioForm" novalidate>
+              <div class="auth-error" id="scenarioFormError" role="alert"></div>
+
+              <div class="form-grid" style="grid-template-columns:1fr;">
+
+                <!-- Task selector -->
+                <div class="form-field">
+                  <label for="scenarioTask">Select task to simulate <span class="text-red">*</span></label>
+                  <select id="scenarioTask" required>
+                    <option value="">— Choose a task —</option>
+                  </select>
+                </div>
+
+                <!-- Current deadline (readonly) -->
+                <div class="form-field">
+                  <label for="currentDeadline">Current deadline</label>
+                  <input type="date" id="currentDeadline" readonly />
+                  <span class="form-error" id="currentDeadlineLabel"></span>
+                </div>
+
+                <!-- Proposed deadline -->
+                <div class="form-field">
+                  <label for="proposedDeadline">Proposed new deadline <span class="text-red">*</span></label>
+                  <input type="date" id="proposedDeadline" required />
+                </div>
+
+              </div>
+
+              <div style="margin-top:20px;">
+                <button type="submit" class="btn btn-primary btn-full" id="analyzeBtn">
+                  📊 Analyze Impact
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Result card (hidden until analysis runs) -->
+          <div id="scenarioResultWrap" class="scenario-result">
+            <!-- rendered by scenario.js -->
+          </div>
+
+        </div><!-- /scenario-layout -->
+
+        <!-- All tasks overview table -->
+        <div class="widget">
+          <div class="widget-header">
+            <span class="widget-title">📅 All Tasks by Deadline</span>
+            <span class="text-muted fs-sm" id="tasksOverviewCount"></span>
+          </div>
+          <div id="tasksOverviewTable">
+            <!-- rendered by scenario.js -->
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/scenario.js"></script>
+</body>
+</html>

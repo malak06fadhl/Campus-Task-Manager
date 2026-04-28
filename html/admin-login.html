@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyBalance — Admin Login</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    /* Admin accent: swap blue for a slightly deeper tone on this page */
+    .auth-logo-mark { background: #f3eeff; }
+    .auth-logo-text { color: var(--purple); }
+    .btn-admin      { background: var(--purple); color: #fff;
+                      box-shadow: 0 2px 8px rgba(124,58,237,0.25); }
+    .btn-admin:hover { filter: brightness(0.92); }
+    .admin-badge    { display: inline-flex; align-items: center; gap: 6px;
+                      background: #f3eeff; color: var(--purple);
+                      font-size: 0.75rem; font-weight: 700;
+                      padding: 4px 12px; border-radius: 999px;
+                      margin-bottom: 20px; }
+  </style>
+</head>
+<body class="auth-page">
+
+  <div class="auth-card">
+
+    <a href="index.html" class="auth-logo">
+      <div class="auth-logo-mark">🛡️</div>
+      <span class="auth-logo-text">StudyBalance</span>
+    </a>
+
+    <div class="admin-badge">🔒 Admin Portal</div>
+
+    <h1 class="auth-title">Admin sign in</h1>
+    <p class="auth-subtitle">Restricted access. Authorised personnel only.</p>
+
+    <div class="auth-error" id="adminError" role="alert"></div>
+
+    <form class="auth-form" id="adminLoginForm" novalidate>
+
+      <div class="form-field">
+        <label for="adminEmail">Admin email</label>
+        <input
+          type="email"
+          id="adminEmail"
+          name="email"
+          placeholder="admin@studybalance.com"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="adminPassword">Password</label>
+        <input
+          type="password"
+          id="adminPassword"
+          name="password"
+          placeholder="Enter admin password"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-full btn-admin" id="adminLoginBtn">
+        Sign in as Admin
+      </button>
+
+    </form>
+
+    <p class="auth-switch">
+      Student? <a href="login.html">Go to student login</a>
+    </p>
+
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>

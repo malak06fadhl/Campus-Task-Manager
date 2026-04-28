@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyBalance — Admin Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body data-page="admin-dashboard">
+
+  <div class="page-shell">
+
+    <!-- ── Admin Sidebar ── -->
+    <aside class="sidebar admin-sidebar">
+      <a href="admin-dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark admin-logo-mark">🛡️</div>
+        <span class="sidebar-logo-text admin-logo-text">Admin Panel</span>
+      </a>
+      <nav class="sidebar-nav">
+        <span class="sidebar-nav-label">Management</span>
+        <a href="admin-dashboard.html"><span class="nav-icon">📊</span> Admin Dashboard</a>
+        <a href="manage-users.html"><span class="nav-icon">👥</span> Manage Users</a>
+        <a href="manage-task-records.html"><span class="nav-icon">🗂️</span> Manage Tasks</a>
+        <span class="sidebar-nav-label">Account</span>
+        <a href="#" id="adminLogoutBtn"><span class="nav-icon">🚪</span> Logout</a>
+      </nav>
+    </aside>
+
+    <!-- ── Page body ── -->
+    <div class="page-body">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="search" placeholder="Search…" id="topbarSearch" />
+        </div>
+        <div class="topbar-right">
+          <div class="admin-topbar-badge">🛡️ Admin</div>
+          <div class="user-chip">
+            <div class="user-avatar admin-avatar">A</div>
+            <div class="user-chip-info">
+              <span class="user-chip-name">Administrator</span>
+              <span class="user-chip-role">Admin</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Admin Dashboard</h1>
+            <p class="page-subtitle">Platform overview and system activity.</p>
+          </div>
+        </div>
+
+        <!-- Summary cards -->
+        <div class="summary-grid" id="adminSummary">
+          <!-- rendered by admin.js -->
+        </div>
+
+        <!-- Two-column: recent users + task overview -->
+        <div class="admin-overview-grid">
+
+          <!-- Recent users -->
+          <div class="widget">
+            <div class="widget-header">
+              <span class="widget-title">👥 Recent Users</span>
+              <a href="manage-users.html" class="widget-link">View all →</a>
+            </div>
+            <div id="recentUsersTable">
+              <!-- rendered by admin.js -->
+            </div>
+          </div>
+
+          <!-- Task status overview -->
+          <div class="widget">
+            <div class="widget-header">
+              <span class="widget-title">📊 Tasks by Status</span>
+            </div>
+            <div id="taskStatusOverview">
+              <!-- rendered by admin.js -->
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

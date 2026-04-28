@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyBalance — Tasks</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <div class="page-shell">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark">⚖️</div>
+        <span class="sidebar-logo-text">StudyBalance</span>
+      </a>
+
+      <nav class="sidebar-nav">
+        <span class="sidebar-nav-label">Main Menu</span>
+        <a href="dashboard.html">
+          <span class="nav-icon">🏠</span> Dashboard
+        </a>
+        <a href="courses.html">
+          <span class="nav-icon">📚</span> Courses
+        </a>
+        <a href="task-management.html">
+          <span class="nav-icon">✅</span> Tasks
+        </a>
+        <a href="analytics.html">
+          <span class="nav-icon">📊</span> Analytics
+        </a>
+        <a href="heatmap.html">
+          <span class="nav-icon">🗓️</span> Heatmap
+        </a>
+        <a href="scenario.html">
+          <span class="nav-icon">📈</span> What-If Scenario
+        </a>
+        <span class="sidebar-nav-label">Account</span>
+        <a href="profile.html">
+          <span class="nav-icon">👤</span> Profile
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ── Page body ── -->
+    <div class="page-body">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="search" placeholder="Search tasks…" id="topbarSearch" />
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-ghost btn-icon" title="Notifications" aria-label="Notifications">
+            🔔
+          </button>
+          <div class="user-chip">
+            <div class="user-avatar">A</div>
+            <div class="user-chip-info">
+              <span class="user-chip-name">Student</span>
+              <span class="user-chip-role">Student</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+
+        <!-- Page header -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Task Management</h1>
+            <p class="page-subtitle">Track and manage all your academic tasks.</p>
+          </div>
+          <button class="btn btn-primary" id="addTaskBtn">+ Add Task</button>
+        </div>
+
+        <!-- Summary strip -->
+        <div id="tasksSummaryStrip"></div>
+
+        <!-- Filter bar -->
+        <div class="widget" style="padding:16px 20px;">
+          <div class="filter-bar">
+            <!-- Status tabs -->
+            <div class="filter-tabs" id="statusTabs" role="tablist">
+              <button class="filter-tab active" data-status="all"    role="tab">All</button>
+              <button class="filter-tab"         data-status="pending"    role="tab">Pending</button>
+              <button class="filter-tab"         data-status="inprogress" role="tab">In Progress</button>
+              <button class="filter-tab"         data-status="completed"  role="tab">Completed</button>
+            </div>
+
+            <!-- Priority filter -->
+            <select class="filter-select" id="priorityFilter" aria-label="Filter by priority">
+              <option value="all">All Priorities</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+
+            <!-- Sort -->
+            <select class="filter-select" id="sortSelect" aria-label="Sort tasks">
+              <option value="deadline-asc">Deadline ↑</option>
+              <option value="deadline-desc">Deadline ↓</option>
+              <option value="priority">Priority</option>
+              <option value="title">Title A–Z</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Task list -->
+        <div class="tasks-list" id="tasksList">
+          <!-- rendered by tasks.js -->
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ── Add / Edit Task Modal ── -->
+  <div class="modal-overlay" id="taskModal" role="dialog" aria-modal="true" aria-labelledby="taskModalTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 class="modal-title" id="taskModalTitle">Add Task</h2>
+        <button class="modal-close" id="taskModalClose" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="auth-error" id="taskFormError" role="alert"></div>
+
+      <form id="taskForm" novalidate>
+        <input type="hidden" id="taskId" />
+
+        <div class="form-grid">
+
+          <div class="form-field full">
+            <label for="taskTitle">Task title <span class="text-red">*</span></label>
+            <input type="text" id="taskTitle" placeholder="e.g. Project Proposal" required />
+          </div>
+
+          <div class="form-field full">
+            <label for="taskCourse">Course <span class="text-red">*</span></label>
+            <select id="taskCourse" required>
+              <option value="">— Select a course —</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="taskPriority">Priority <span class="text-red">*</span></label>
+            <select id="taskPriority" required>
+              <option value="">— Select —</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="taskStatus">Status <span class="text-red">*</span></label>
+            <select id="taskStatus" required>
+              <option value="">— Select —</option>
+              <option value="pending">Pending</option>
+              <option value="inprogress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+
+          <div class="form-field full">
+            <label for="taskDeadline">Deadline <span class="text-red">*</span></label>
+            <input type="date" id="taskDeadline" required />
+          </div>
+
+          <div class="form-field full">
+            <label for="taskDescription">Description <span class="text-muted fs-xs">(optional)</span></label>
+            <textarea id="taskDescription" placeholder="Add any notes or details about this task…" rows="3"></textarea>
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" id="taskModalCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="taskModalSave">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Delete Confirmation Modal ── -->
+  <div class="modal-overlay" id="taskDeleteModal" role="dialog" aria-modal="true" aria-labelledby="taskDeleteTitle">
+    <div class="modal-box" style="max-width:420px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="taskDeleteTitle">Delete Task</h2>
+        <button class="modal-close" id="taskDeleteClose" aria-label="Close">✕</button>
+      </div>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:20px;">
+        Are you sure you want to delete
+        <strong id="deleteTaskName"></strong>?
+        This action cannot be undone.
+      </p>
+      <div class="form-actions">
+        <button type="button" class="btn btn-ghost"   id="taskDeleteCancel">Cancel</button>
+        <button type="button" class="btn btn-danger"  id="taskDeleteConfirm">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/tasks.js"></script>
+</body>
+</html>

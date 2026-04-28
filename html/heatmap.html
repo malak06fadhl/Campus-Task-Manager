@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyBalance — Heatmap</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <div class="page-shell">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark">⚖️</div>
+        <span class="sidebar-logo-text">StudyBalance</span>
+      </a>
+      <nav class="sidebar-nav">
+        <span class="sidebar-nav-label">Main Menu</span>
+        <a href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
+        <a href="courses.html"><span class="nav-icon">📚</span> Courses</a>
+        <a href="task-management.html"><span class="nav-icon">✅</span> Tasks</a>
+        <a href="analytics.html"><span class="nav-icon">📊</span> Analytics</a>
+        <a href="heatmap.html"><span class="nav-icon">🗓️</span> Heatmap</a>
+        <a href="scenario.html"><span class="nav-icon">📈</span> What-If Scenario</a>
+        <span class="sidebar-nav-label">Account</span>
+        <a href="profile.html"><span class="nav-icon">👤</span> Profile</a>
+      </nav>
+    </aside>
+
+    <!-- ── Page body ── -->
+    <div class="page-body">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="search" placeholder="Search tasks on heatmap…" id="topbarSearch" />
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-ghost btn-icon" title="Notifications" aria-label="Notifications">🔔</button>
+          <div class="user-chip">
+            <div class="user-avatar">A</div>
+            <div class="user-chip-info">
+              <span class="user-chip-name">Student</span>
+              <span class="user-chip-role">Student</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+
+        <!-- Page header -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Academic Heatmap</h1>
+            <p class="page-subtitle">Visualise your workload intensity across the semester.</p>
+          </div>
+          <button class="btn btn-ghost" id="todayBtn">📅 Today</button>
+        </div>
+
+        <!-- Monthly summary cards -->
+        <div class="summary-grid" id="heatmapSummary">
+          <!-- rendered by heatmap.js -->
+        </div>
+
+        <!-- Heatmap + day detail: two-column layout -->
+        <div class="heatmap-layout">
+
+          <!-- Left: calendar card -->
+          <div class="widget heatmap-calendar-card">
+
+            <!-- Month navigation -->
+            <div class="month-nav">
+              <button class="btn btn-ghost btn-sm" id="prevMonthBtn" aria-label="Previous month">‹ Prev</button>
+              <span class="month-nav-title" id="monthNavTitle">May 2026</span>
+              <button class="btn btn-ghost btn-sm" id="nextMonthBtn" aria-label="Next month">Next ›</button>
+            </div>
+
+            <!-- Day-of-week headers -->
+            <div class="heatmap-day-names" id="heatmapDayNames"></div>
+
+            <!-- Calendar grid -->
+            <div class="heatmap-grid" id="heatmapGrid"></div>
+
+            <!-- Legend -->
+            <div class="heatmap-legend" id="heatmapLegend">
+              <div class="legend-item"><span class="legend-dot hm-empty"></span>None</div>
+              <div class="legend-item"><span class="legend-dot hm-light"></span>Light (1)</div>
+              <div class="legend-item"><span class="legend-dot hm-moderate"></span>Moderate (2)</div>
+              <div class="legend-item"><span class="legend-dot hm-busy"></span>Busy (3)</div>
+              <div class="legend-item"><span class="legend-dot hm-very-busy"></span>Very Busy (4+)</div>
+            </div>
+          </div>
+
+          <!-- Right: day detail card -->
+          <div class="widget heatmap-detail-card" id="heatmapDetail">
+            <div class="heatmap-detail-placeholder">
+              <div class="empty-icon">👆</div>
+              <div class="empty-title">Select a day</div>
+              <div class="empty-desc">Click any day on the calendar to see tasks due on that date.</div>
+            </div>
+          </div>
+
+        </div><!-- /heatmap-layout -->
+
+        <!-- Weekly workload summary -->
+        <div class="widget">
+          <div class="widget-header">
+            <span class="widget-title">📊 This Week's Workload</span>
+          </div>
+          <div id="weeklySummary">
+            <!-- rendered by heatmap.js -->
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/heatmap.js"></script>
+</body>
+</html>

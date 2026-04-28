@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyBalance — Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <div class="page-shell">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark">⚖️</div>
+        <span class="sidebar-logo-text">StudyBalance</span>
+      </a>
+
+      <nav class="sidebar-nav">
+        <span class="sidebar-nav-label">Main Menu</span>
+        <a href="dashboard.html">
+          <span class="nav-icon">🏠</span> Dashboard
+        </a>
+        <a href="courses.html">
+          <span class="nav-icon">📚</span> Courses
+        </a>
+        <a href="task-management.html">
+          <span class="nav-icon">✅</span> Tasks
+        </a>
+        <a href="analytics.html">
+          <span class="nav-icon">📊</span> Analytics
+        </a>
+        <a href="heatmap.html">
+          <span class="nav-icon">🗓️</span> Heatmap
+        </a>
+        <a href="scenario.html">
+          <span class="nav-icon">📈</span> What-If Scenario
+        </a>
+        <span class="sidebar-nav-label">Account</span>
+        <a href="profile.html">
+          <span class="nav-icon">👤</span> Profile
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ── Page body ── -->
+    <div class="page-body">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="search" placeholder="Search tasks, courses…" id="topbarSearch" />
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-ghost btn-icon" title="Notifications" aria-label="Notifications">
+            🔔
+          </button>
+          <div class="user-chip" id="userChip">
+            <div class="user-avatar" id="userAvatar">A</div>
+            <div class="user-chip-info">
+              <span class="user-chip-name" id="userChipName">Student</span>
+              <span class="user-chip-role">Student</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+
+        <!-- Hero welcome card -->
+        <div class="hero-card">
+          <div class="hero-greeting" id="heroGreeting">Good morning! 👋</div>
+          <div class="hero-subtitle">Smart Academic Workload Planning System</div>
+        </div>
+
+        <!-- Summary cards -->
+        <div class="summary-grid" id="summaryGrid">
+          <div class="summary-card">
+            <div class="summary-icon blue">📋</div>
+            <div class="summary-meta">
+              <span class="summary-label">Total Tasks</span>
+              <span class="summary-value" id="statTotal">—</span>
+              <span class="summary-sub">Across all courses</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-icon green">✅</div>
+            <div class="summary-meta">
+              <span class="summary-label">Completed</span>
+              <span class="summary-value" id="statCompleted">—</span>
+              <span class="summary-sub" id="statCompletedPct">—</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-icon yellow">⏳</div>
+            <div class="summary-meta">
+              <span class="summary-label">Pending</span>
+              <span class="summary-value" id="statPending">—</span>
+              <span class="summary-sub" id="statPendingPct">—</span>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-icon red">🚨</div>
+            <div class="summary-meta">
+              <span class="summary-label">Urgent</span>
+              <span class="summary-value" id="statUrgent">—</span>
+              <span class="summary-sub">Due within 48 hours</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Widget row: Priority Tasks | Mini Heatmap | Course Progress -->
+        <div class="widget-grid">
+
+          <!-- Priority Tasks -->
+          <div class="widget">
+            <div class="widget-header">
+              <span class="widget-title">☰ Priority Tasks</span>
+              <a href="task-management.html" class="widget-link">View all →</a>
+            </div>
+            <div id="priorityTasksList">
+              <!-- rendered by dashboard.js -->
+            </div>
+          </div>
+
+          <!-- Mini Heatmap -->
+          <div class="widget">
+            <div class="widget-header">
+              <span class="widget-title">🗓️ This Week</span>
+              <a href="heatmap.html" class="widget-link">Full view →</a>
+            </div>
+            <div class="heatmap-day-names" id="miniHeatmapDayNames">
+              <!-- rendered by dashboard.js -->
+            </div>
+            <div class="heatmap-grid" id="miniHeatmapGrid">
+              <!-- rendered by dashboard.js -->
+            </div>
+            <div class="heatmap-legend" id="miniHeatmapLegend">
+              <div class="legend-item">
+                <span class="legend-dot hm-empty"></span> None
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot hm-light"></span> Light
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot hm-moderate"></span> Moderate
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot hm-busy"></span> Busy
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot hm-very-busy"></span> Very Busy
+              </div>
+            </div>
+          </div>
+
+          <!-- Course Progress -->
+          <div class="widget">
+            <div class="widget-header">
+              <span class="widget-title">📚 Courses</span>
+              <a href="courses.html" class="widget-link">View all →</a>
+            </div>
+            <div id="courseProgressList">
+              <!-- rendered by dashboard.js -->
+            </div>
+          </div>
+
+        </div><!-- /widget-grid -->
+
+        <!-- What-If Scenario shortcut -->
+        <div class="widget scenario-shortcut">
+          <div class="scenario-shortcut-inner">
+            <div class="scenario-shortcut-text">
+              <div class="widget-title">📈 What-If Scenario Simulator</div>
+              <p class="text-muted fs-sm" style="margin-top:6px;">
+                Simulate deadline changes before they become a problem.
+                See how moving a task affects your weekly workload.
+              </p>
+            </div>
+            <a href="scenario.html" class="btn btn-primary">Try Simulator →</a>
+          </div>
+        </div>
+
+      </main><!-- /main-content -->
+    </div><!-- /page-body -->
+  </div><!-- /page-shell -->
+
+  <script src="../js/main.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

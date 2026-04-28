@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyBalance — Profile</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <div class="page-shell">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark">⚖️</div>
+        <span class="sidebar-logo-text">StudyBalance</span>
+      </a>
+      <nav class="sidebar-nav">
+        <span class="sidebar-nav-label">Main Menu</span>
+        <a href="dashboard.html"><span class="nav-icon">🏠</span> Dashboard</a>
+        <a href="courses.html"><span class="nav-icon">📚</span> Courses</a>
+        <a href="task-management.html"><span class="nav-icon">✅</span> Tasks</a>
+        <a href="analytics.html"><span class="nav-icon">📊</span> Analytics</a>
+        <a href="heatmap.html"><span class="nav-icon">🗓️</span> Heatmap</a>
+        <a href="scenario.html"><span class="nav-icon">📈</span> What-If Scenario</a>
+        <span class="sidebar-nav-label">Account</span>
+        <a href="profile.html"><span class="nav-icon">👤</span> Profile</a>
+      </nav>
+    </aside>
+
+    <!-- ── Page body ── -->
+    <div class="page-body">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="search" placeholder="Search…" id="topbarSearch" />
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-ghost btn-icon" title="Notifications" aria-label="Notifications">🔔</button>
+          <div class="user-chip">
+            <div class="user-avatar">A</div>
+            <div class="user-chip-info">
+              <span class="user-chip-name">Student</span>
+              <span class="user-chip-role">Student</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+
+        <!-- Page header -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">My Profile</h1>
+            <p class="page-subtitle">Manage your account details and preferences.</p>
+          </div>
+          <button class="btn btn-danger" id="logoutBtn">🚪 Logout</button>
+        </div>
+
+        <!-- Profile grid: avatar card + edit form -->
+        <div class="profile-grid">
+
+          <!-- Left: avatar / info card -->
+          <div>
+            <!-- Avatar card -->
+            <div class="profile-avatar-card">
+              <div class="profile-avatar-circle" id="profileAvatar">A</div>
+              <div class="profile-name"  id="profileName">—</div>
+              <div class="profile-role"  id="profileRole">Student</div>
+              <div class="profile-since" id="profileSince"></div>
+            </div>
+
+            <!-- Stats card -->
+            <div class="widget profile-stats-card">
+              <div class="widget-header">
+                <span class="widget-title">📊 My Stats</span>
+              </div>
+              <div class="profile-stats-list" id="profileStats">
+                <!-- rendered by profile.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: edit form card -->
+          <div class="widget">
+            <div class="widget-header">
+              <span class="widget-title">✏️ Edit Profile</span>
+            </div>
+
+            <!-- Success / error messages -->
+            <div id="profileSuccess" class="alert alert-success" style="display:none; margin-bottom:16px;">
+              <span class="alert-icon">✅</span>
+              <span id="profileSuccessMsg">Profile updated successfully.</span>
+            </div>
+            <div id="profileError" class="alert alert-danger" style="display:none; margin-bottom:16px;">
+              <span class="alert-icon">❌</span>
+              <span id="profileErrorMsg"></span>
+            </div>
+
+            <form id="profileForm" novalidate>
+              <div class="form-grid">
+
+                <div class="form-field full">
+                  <label for="fieldName">Full name <span class="text-red">*</span></label>
+                  <input type="text" id="fieldName" placeholder="Your full name" required />
+                </div>
+
+                <div class="form-field full">
+                  <label for="fieldEmail">Email address <span class="text-red">*</span></label>
+                  <input type="email" id="fieldEmail" placeholder="you@email.com" required />
+                </div>
+
+                <div class="form-field">
+                  <label for="fieldPassword">
+                    New password
+                    <span class="text-muted fs-xs">(leave blank to keep current)</span>
+                  </label>
+                  <input type="password" id="fieldPassword"
+                    placeholder="At least 6 characters"
+                    autocomplete="new-password" />
+                </div>
+
+                <div class="form-field">
+                  <label for="fieldConfirm">Confirm new password</label>
+                  <input type="password" id="fieldConfirm"
+                    placeholder="Repeat new password"
+                    autocomplete="new-password" />
+                </div>
+
+              </div><!-- /form-grid -->
+
+              <div class="form-actions" style="margin-top:24px;">
+                <button type="button" class="btn btn-ghost" id="resetFormBtn">Reset</button>
+                <button type="submit" class="btn btn-primary" id="saveProfileBtn">
+                  💾 Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div><!-- /profile-grid -->
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/profile.js"></script>
+</body>
+</html>

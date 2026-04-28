@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyBalance — Manage Task Records</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body data-page="manage-tasks">
+
+  <div class="page-shell">
+
+    <!-- ── Admin Sidebar ── -->
+    <aside class="sidebar admin-sidebar">
+      <a href="admin-dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark admin-logo-mark">🛡️</div>
+        <span class="sidebar-logo-text admin-logo-text">Admin Panel</span>
+      </a>
+      <nav class="sidebar-nav">
+        <span class="sidebar-nav-label">Management</span>
+        <a href="admin-dashboard.html"><span class="nav-icon">📊</span> Admin Dashboard</a>
+        <a href="manage-users.html"><span class="nav-icon">👥</span> Manage Users</a>
+        <a href="manage-task-records.html"><span class="nav-icon">🗂️</span> Manage Tasks</a>
+        <span class="sidebar-nav-label">Account</span>
+        <a href="#" id="adminLogoutBtn"><span class="nav-icon">🚪</span> Logout</a>
+      </nav>
+    </aside>
+
+    <!-- ── Page body ── -->
+    <div class="page-body">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="search" placeholder="Search tasks by title, student, or course…" id="topbarSearch" />
+        </div>
+        <div class="topbar-right">
+          <div class="admin-topbar-badge">🛡️ Admin</div>
+          <div class="user-chip">
+            <div class="user-avatar admin-avatar">A</div>
+            <div class="user-chip-info">
+              <span class="user-chip-name">Administrator</span>
+              <span class="user-chip-role">Admin</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Manage Task Records</h1>
+            <p class="page-subtitle">View all academic tasks across all students.</p>
+          </div>
+          <span class="text-muted fs-sm" id="tasksCount"></span>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="widget" style="padding:14px 20px;">
+          <div class="filter-bar">
+            <div class="filter-tabs" id="statusFilterTabs" role="tablist">
+              <button class="filter-tab active" data-status="all"        role="tab">All</button>
+              <button class="filter-tab"         data-status="pending"    role="tab">Pending</button>
+              <button class="filter-tab"         data-status="inprogress" role="tab">In Progress</button>
+              <button class="filter-tab"         data-status="completed"  role="tab">Completed</button>
+            </div>
+            <select class="filter-select" id="priorityFilter" aria-label="Filter by priority">
+              <option value="all">All Priorities</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tasks table -->
+        <div id="tasksTableWrap">
+          <!-- rendered by admin.js -->
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

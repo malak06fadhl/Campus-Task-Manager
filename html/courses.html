@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyBalance — Courses</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <div class="page-shell">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark">⚖️</div>
+        <span class="sidebar-logo-text">StudyBalance</span>
+      </a>
+
+      <nav class="sidebar-nav">
+        <span class="sidebar-nav-label">Main Menu</span>
+        <a href="dashboard.html">
+          <span class="nav-icon">🏠</span> Dashboard
+        </a>
+        <a href="courses.html">
+          <span class="nav-icon">📚</span> Courses
+        </a>
+        <a href="task-management.html">
+          <span class="nav-icon">✅</span> Tasks
+        </a>
+        <a href="analytics.html">
+          <span class="nav-icon">📊</span> Analytics
+        </a>
+        <a href="heatmap.html">
+          <span class="nav-icon">🗓️</span> Heatmap
+        </a>
+        <a href="scenario.html">
+          <span class="nav-icon">📈</span> What-If Scenario
+        </a>
+        <span class="sidebar-nav-label">Account</span>
+        <a href="profile.html">
+          <span class="nav-icon">👤</span> Profile
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ── Page body ── -->
+    <div class="page-body">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="search" placeholder="Search courses…" id="topbarSearch" />
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-ghost btn-icon" title="Notifications" aria-label="Notifications">
+            🔔
+          </button>
+          <div class="user-chip">
+            <div class="user-avatar">A</div>
+            <div class="user-chip-info">
+              <span class="user-chip-name">Student</span>
+              <span class="user-chip-role">Student</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+
+        <!-- Page header -->
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">My Courses</h1>
+            <p class="page-subtitle">Manage your enrolled courses and track progress.</p>
+          </div>
+          <button class="btn btn-primary" id="addCourseBtn">
+            + Add Course
+          </button>
+        </div>
+
+        <!-- Summary strip -->
+        <div class="courses-summary-strip" id="coursesSummaryStrip">
+          <!-- rendered by courses.js -->
+        </div>
+
+        <!-- Courses grid -->
+        <div class="courses-grid" id="coursesGrid">
+          <!-- rendered by courses.js -->
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ── Add / Edit Course Modal ── -->
+  <div class="modal-overlay" id="courseModal" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 class="modal-title" id="courseModalTitle">Add Course</h2>
+        <button class="modal-close" id="courseModalClose" aria-label="Close modal">✕</button>
+      </div>
+
+      <!-- Inline form error -->
+      <div class="auth-error" id="courseFormError" role="alert"></div>
+
+      <form id="courseForm" novalidate>
+        <!-- Hidden field: course id when editing -->
+        <input type="hidden" id="courseId" />
+
+        <div class="form-grid">
+
+          <div class="form-field full">
+            <label for="courseName">Course name <span class="text-red">*</span></label>
+            <input type="text" id="courseName" placeholder="e.g. Software Engineering" required />
+          </div>
+
+          <div class="form-field">
+            <label for="courseCode">Course code <span class="text-red">*</span></label>
+            <input type="text" id="courseCode" placeholder="e.g. SE201" required />
+          </div>
+
+          <div class="form-field">
+            <label for="courseCredits">Credit hours <span class="text-red">*</span></label>
+            <input type="number" id="courseCredits" placeholder="e.g. 3" min="1" max="12" required />
+          </div>
+
+          <div class="form-field full">
+            <label for="courseInstructor">Instructor</label>
+            <input type="text" id="courseInstructor" placeholder="e.g. Dr. Smith" />
+          </div>
+
+          <div class="form-field full">
+            <label for="courseProgress">
+              Progress: <span id="courseProgressLabel">0</span>%
+            </label>
+            <input
+              type="range"
+              id="courseProgress"
+              min="0" max="100" step="1"
+              value="0"
+              style="width:100%; accent-color: var(--blue);"
+            />
+          </div>
+
+        </div><!-- /form-grid -->
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" id="courseModalCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="courseModalSave">Save Course</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Delete Confirmation Modal ── -->
+  <div class="modal-overlay" id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+    <div class="modal-box" style="max-width:420px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="deleteModalTitle">Delete Course</h2>
+        <button class="modal-close" id="deleteModalClose" aria-label="Close">✕</button>
+      </div>
+      <p style="color:var(--muted); font-size:0.9rem; margin-bottom:8px;">
+        Are you sure you want to delete
+        <strong id="deleteCourseName"></strong>?
+      </p>
+      <p class="alert alert-warning" style="margin-bottom:20px;">
+        <span class="alert-icon">⚠️</span>
+        This will also delete all tasks linked to this course. This action cannot be undone.
+      </p>
+      <div class="form-actions">
+        <button type="button" class="btn btn-ghost" id="deleteModalCancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="deleteModalConfirm">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/courses.js"></script>
+</body>
+</html>
