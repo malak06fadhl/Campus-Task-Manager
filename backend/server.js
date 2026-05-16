@@ -18,9 +18,12 @@ const PORT = config.PORT;
 
 /* ── Middleware ── */
 app.use(cors({
-  origin: '*',
+  origin: config.NODE_ENV === 'production' 
+    ? (config.CORS_ORIGIN !== '*' ? config.CORS_ORIGIN : config.FRONTEND_URL)
+    : '*',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 app.use(express.json());
 
