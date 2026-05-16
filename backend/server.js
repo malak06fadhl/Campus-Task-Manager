@@ -41,6 +41,9 @@ app.use('/api', require('./routes/tasks'));
 /* ── Admin routes ── */
 app.use('/api/admin', require('./routes/admin'));
 
+/* ── AI Chat routes ── */
+app.use('/api', require('./routes/ai-chat'));
+
 /* ── 404 handler ── */
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
