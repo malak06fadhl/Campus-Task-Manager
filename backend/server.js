@@ -12,6 +12,7 @@ const path    = require('path');
 /* ── Init DB (runs schema on first start) ── */
 const db     = require('./db');
 const config = require('./config');
+const { ensureDefaultAdmin } = require('./seed-default-admin');
 
 const app  = express();
 const PORT = config.PORT;
@@ -59,7 +60,12 @@ app.use((err, req, res, next) => {
 });
 
 /* ── Start after DB schema is ready ── */
-db.ready.then(() => {
+db.ready.then(async () => {
+  // Ensure default admin exists (local development only)
+  if (config.NODE_ENV !== 'production') {
+    await ensureDefaultAdmin();
+  }
+
   app.listen(PORT, () => {
     console.log(`StudyBalance API running at http://localhost:${PORT}`);
     console.log(`Health:    GET  http://localhost:${PORT}/api/health`);
