@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyBalance — AI Study Support</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <div class="page-shell">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+      <a href="dashboard.html" class="sidebar-logo">
+        <div class="sidebar-logo-mark">⚖️</div>
+        <span class="sidebar-logo-text">StudyBalance</span>
+      </a>
+
+      <nav class="sidebar-nav">
+        <span class="sidebar-nav-label">Main Menu</span>
+        <a href="dashboard.html">
+          <span class="nav-icon">🏠</span> Dashboard
+        </a>
+        <a href="courses.html">
+          <span class="nav-icon">📚</span> Courses
+        </a>
+        <a href="task-management.html">
+          <span class="nav-icon">✅</span> Tasks
+        </a>
+        <a href="analytics.html">
+          <span class="nav-icon">📊</span> Analytics
+        </a>
+        <a href="heatmap.html">
+          <span class="nav-icon">🗓️</span> Heatmap
+        </a>
+        <a href="scenario.html">
+          <span class="nav-icon">📈</span> What-If Scenario
+        </a>
+        <a href="ai-assistant.html" class="active">
+          <span class="nav-icon">🤖</span> AI Support
+        </a>
+        <span class="sidebar-nav-label">Account</span>
+        <a href="profile.html">
+          <span class="nav-icon">👤</span> Profile
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ── Page body ── -->
+    <div class="page-body">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-search">
+          <span class="topbar-search-icon">🔍</span>
+          <input type="search" placeholder="Search tasks, courses…" id="topbarSearch" />
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-ghost btn-icon" title="Notifications" aria-label="Notifications">
+            🔔
+          </button>
+          <div class="user-chip" id="userChip">
+            <div class="user-avatar" id="userAvatar">A</div>
+            <div class="user-chip-info">
+              <span class="user-chip-name" id="userChipName">Student</span>
+              <span class="user-chip-role">Student</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+        <h1>AI Study Support</h1>
+
+        <div class="ai-layout">
+          <!-- Left Panel: Conversation List -->
+          <aside class="conversation-list-panel">
+            <button class="new-chat-btn btn btn-primary" id="newChatBtn">
+              + New Chat
+            </button>
+            <div class="conversation-list" id="conversationList">
+              <!-- Conversation items rendered by JavaScript -->
+            </div>
+            <div class="empty-state" id="conversationEmptyState" style="display: none;">
+              <div class="empty-icon">💬</div>
+              <p>No conversations yet. Start a new chat!</p>
+            </div>
+          </aside>
+
+          <!-- Right Panel: Active Chat -->
+          <section class="chat-panel">
+            <div class="messages-container" id="messagesContainer">
+              <!-- Messages rendered by JavaScript -->
+              <div class="welcome-message" id="welcomeMessage">
+                <div class="welcome-icon">🤖</div>
+                <h3>Hi! I'm your AI study support assistant.</h3>
+                <p>Tell me about your workload, and I'll help you organize and prioritize.</p>
+                <div class="example-prompts">
+                  <p><strong>Try asking:</strong></p>
+                  <ul>
+                    <li>"I have 3 assignments due this week and I'm feeling overwhelmed"</li>
+                    <li>"Help me prioritize my tasks for today"</li>
+                    <li>"I don't know where to start with my project"</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="message-input-area">
+              <textarea 
+                id="messageInput"
+                placeholder="Tell me about your workload..."
+                rows="1"
+                maxlength="2000"
+              ></textarea>
+              <button id="sendBtn" class="send-btn btn btn-primary" disabled>
+                <span>Send</span>
+                <span class="send-icon">➤</span>
+              </button>
+            </div>
+            <div class="character-counter" id="characterCounter">
+              <span id="charCount">0</span> / 2000 characters
+            </div>
+          </section>
+        </div>
+
+      </main><!-- /main-content -->
+    </div><!-- /page-body -->
+  </div><!-- /page-shell -->
+
+  <script src="../js/main.js"></script>
+  <script src="../js/ai-assistant.js"></script>
+</body>
+</html>

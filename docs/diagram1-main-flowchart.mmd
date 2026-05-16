@@ -1,0 +1,144 @@
+flowchart TD
+    Start([User Opens Application]) --> Landing[Landing Page]
+    Landing --> AuthCheck{User<br/>Authenticated?}
+    
+    AuthCheck -->|No| AuthChoice{Choose Action}
+    AuthChoice -->|New User| Register[Registration Page]
+    AuthChoice -->|Existing User| Login[Login Page]
+    
+    Register --> RegValidate{Valid<br/>Registration<br/>Data?}
+    RegValidate -->|No| RegError[Show Validation Error]
+    RegError --> Register
+    RegValidate -->|Yes| CreateAccount[Create User Account]
+    CreateAccount --> GenToken[Generate JWT Token]
+    
+    Login --> LoginValidate{Valid<br/>Credentials?}
+    LoginValidate -->|No| LoginError[Show Login Error]
+    LoginError --> Login
+    LoginValidate -->|Yes| GenToken
+    
+    AuthCheck -->|Yes| Dashboard
+    GenToken --> Dashboard[Dashboard Page]
+    
+    Dashboard --> DashAction{User Action}
+    
+    DashAction -->|View Courses| CoursePage[Course Management Page]
+    CoursePage --> CourseAction{Course Action}
+    CourseAction -->|Add Course| AddCourse[Add New Course Form]
+    AddCourse --> ValidateCourse{Valid<br/>Course Data?}
+    ValidateCourse -->|No| CourseError[Show Error]
+    CourseError --> AddCourse
+    ValidateCourse -->|Yes| SaveCourse[Save to Database]
+    SaveCourse --> CoursePage
+    
+    CourseAction -->|Edit Course| EditCourse[Edit Course Form]
+    EditCourse --> UpdateCourse[Update in Database]
+    UpdateCourse --> CoursePage
+    
+    CourseAction -->|Delete Course| ConfirmDelete{Confirm<br/>Deletion?}
+    ConfirmDelete -->|No| CoursePage
+    ConfirmDelete -->|Yes| DeleteCourse[Delete from Database]
+    DeleteCourse --> CoursePage
+    
+    CourseAction -->|Back| Dashboard
+    
+    DashAction -->|Manage Tasks| TaskPage[Task Management Page]
+    TaskPage --> TaskAction{Task Action}
+    
+    TaskAction -->|Add Task| AddTask[Add New Task Form]
+    AddTask --> SelectCourse[Select Course for Task]
+    SelectCourse --> SetPriority[Set Priority & Deadline]
+    SetPriority --> ValidateTask{Valid<br/>Task Data?}
+    ValidateTask -->|No| TaskError[Show Error]
+    TaskError --> AddTask
+    ValidateTask -->|Yes| SaveTask[Save Task to Database]
+    SaveTask --> LinkCourse[Link Task to Course]
+    LinkCourse --> TaskPage
+    
+    TaskAction -->|Edit Task| EditTask[Edit Task Form]
+    EditTask --> UpdateTask[Update in Database]
+    UpdateTask --> TaskPage
+    
+    TaskAction -->|Complete Task| MarkComplete[Mark as Complete]
+    MarkComplete --> UpdateStatus[Update Task Status]
+    UpdateStatus --> TaskPage
+    
+    TaskAction -->|Delete Task| ConfirmTaskDelete{Confirm<br/>Deletion?}
+    ConfirmTaskDelete -->|No| TaskPage
+    ConfirmTaskDelete -->|Yes| DeleteTask[Delete from Database]
+    DeleteTask --> TaskPage
+    
+    TaskAction -->|Back| Dashboard
+    
+    DashAction -->|View Heatmap| HeatmapPage[Academic Heatmap Page]
+    HeatmapPage --> LoadTasks[Load All Tasks]
+    LoadTasks --> GenerateHeatmap[Generate Calendar Heatmap]
+    GenerateHeatmap --> DisplayHeatmap[Display Workload Visualization]
+    DisplayHeatmap --> HeatmapAction{User Action}
+    HeatmapAction -->|View Details| ShowDayTasks[Show Tasks for Selected Day]
+    ShowDayTasks --> DisplayHeatmap
+    HeatmapAction -->|Back| Dashboard
+    
+    DashAction -->|Run Scenario| ScenarioPage[What-If Scenario Page]
+    ScenarioPage --> LoadScenario[Load Current Tasks]
+    LoadScenario --> SimulateAction{Simulation Action}
+    SimulateAction -->|Modify Tasks| AdjustTasks[Adjust Task Completion]
+    AdjustTasks --> RecalculateWorkload[Recalculate Workload]
+    RecalculateWorkload --> ShowPrediction[Show Predicted Impact]
+    ShowPrediction --> SimulateAction
+    SimulateAction -->|Reset| LoadScenario
+    SimulateAction -->|Back| Dashboard
+    
+    DashAction -->|AI Support| AIPage[AI Study Support Page]
+    AIPage --> AIAction{AI Action}
+    AIAction -->|New Chat| CreateConversation[Create New Conversation]
+    CreateConversation --> ChatInterface[Chat Interface]
+    
+    AIAction -->|Load Chat| SelectConversation[Select Saved Conversation]
+    SelectConversation --> LoadHistory[Load Conversation History]
+    LoadHistory --> ChatInterface
+    
+    ChatInterface --> UserMessage[User Types Message]
+    UserMessage --> ValidateMessage{Valid<br/>Message?}
+    ValidateMessage -->|No| MessageError[Show Error]
+    MessageError --> ChatInterface
+    ValidateMessage -->|Yes| SendToBackend[Send to Backend API]
+    SendToBackend --> CallGemini[Backend Calls Gemini API]
+    CallGemini --> ReceiveResponse[Receive AI Response]
+    ReceiveResponse --> DisplayResponse[Display in Chat]
+    DisplayResponse --> SaveConversation[Save to localStorage]
+    SaveConversation --> ChatInterface
+    
+    AIAction -->|Delete Chat| ConfirmChatDelete{Confirm<br/>Deletion?}
+    ConfirmChatDelete -->|No| AIPage
+    ConfirmChatDelete -->|Yes| DeleteConversation[Delete from localStorage]
+    DeleteConversation --> AIPage
+    
+    AIAction -->|Back| Dashboard
+    
+    DashAction -->|View Profile| ProfilePage[Profile Management Page]
+    ProfilePage --> ProfileAction{Profile Action}
+    ProfileAction -->|Edit Info| EditProfile[Edit Profile Form]
+    EditProfile --> UpdateProfile[Update User Data]
+    UpdateProfile --> ProfilePage
+    ProfileAction -->|View Stats| ShowStats[Display Academic Statistics]
+    ShowStats --> ProfilePage
+    ProfileAction -->|Back| Dashboard
+    
+    DashAction -->|Logout| ConfirmLogout{Confirm<br/>Logout?}
+    ConfirmLogout -->|No| Dashboard
+    ConfirmLogout -->|Yes| ClearSession[Clear JWT Token]
+    ClearSession --> Landing
+    
+    ProfileAction -->|Logout| ClearSession
+    
+    style Start fill:#e1f5e1
+    style Landing fill:#e3f2fd
+    style Dashboard fill:#fff3e0
+    style CoursePage fill:#f3e5f5
+    style TaskPage fill:#e8f5e9
+    style HeatmapPage fill:#fff9c4
+    style ScenarioPage fill:#fce4ec
+    style AIPage fill:#e0f2f1
+    style ProfilePage fill:#f1f8e9
+    style ClearSession fill:#ffebee

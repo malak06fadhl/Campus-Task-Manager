@@ -1,0 +1,123 @@
+graph TB
+    subgraph Client["Frontend Layer - Browser"]
+        subgraph HTMLPages["HTML Pages"]
+            IndexHTML[index.html - Landing Page]
+            LoginHTML[login.html - Authentication]
+            DashHTML[dashboard.html - Main Dashboard]
+            CourseHTML[courses.html - Course Management]
+            TaskHTML[task-management.html - Task Management]
+            HeatmapHTML[heatmap.html - Academic Heatmap]
+            ScenarioHTML[scenario.html - What-If Simulator]
+            AIHTML[ai-assistant.html - AI Chat Interface]
+            ProfileHTML[profile.html - User Profile]
+        end
+        
+        subgraph CSSLayer["CSS Styling"]
+            StyleCSS[style.css<br/>Design System<br/>CSS Variables<br/>Responsive Layout<br/>Component Styles]
+        end
+        
+        subgraph JSModules["JavaScript Modules"]
+            MainJS[main.js - Shared Utilities<br/>API Helper - Token Management - Navigation]
+            AuthJS[auth.js - Authentication Logic<br/>Login/Register - JWT Handling]
+            DashJS[dashboard.js - Dashboard Logic<br/>Data Aggregation - Quick Actions]
+            CourseJS[courses.js - Course Management<br/>CRUD Operations - Validation]
+            TaskJS[tasks.js - Task Management<br/>CRUD Operations - Filtering/Search]
+            HeatmapJS[heatmap.js - Heatmap Visualization<br/>Calendar Rendering - Workload Calculation]
+            ScenarioJS[scenario.js - Scenario Simulation<br/>Prediction Logic - Impact Analysis]
+            AIJS[ai-assistant.js - AI Chat Logic<br/>Conversation Management<br/>localStorage Handling<br/>Message Rendering]
+            ProfileJS[profile.js - Profile Management<br/>User Data - Statistics]
+        end
+        
+        subgraph LocalStorage["Browser Storage"]
+            JWT[JWT Token<br/>Authentication]
+            Conversations[AI Conversations<br/>Max 50 chats<br/>Last 10 messages context]
+        end
+    end
+    
+    subgraph Server["Backend Layer - Node.js + Express"]
+        subgraph ExpressServer["Express Server"]
+            ServerJS[server.js - Main Server<br/>CORS Configuration<br/>Route Registration<br/>Error Handling]
+            ConfigJS[config.js - Configuration<br/>Environment Variables<br/>API Keys]
+        end
+        
+        subgraph Middleware["Middleware"]
+            AuthMiddleware[auth.js - JWT Authentication<br/>Token Verification<br/>User Extraction]
+            CORSMiddleware[CORS<br/>Cross-Origin Resource Sharing]
+        end
+        
+        subgraph APIRoutes["API Routes"]
+            AuthRoute[auth.js<br/>/api/register<br/>/api/login<br/>User Registration<br/>Authentication<br/>Token Generation]
+            CourseRoute[courses.js<br/>/api/courses<br/>GET: List Courses<br/>POST: Create Course<br/>PUT: Update Course<br/>DELETE: Remove Course]
+            TaskRoute[tasks.js<br/>/api/tasks<br/>GET: List Tasks<br/>POST: Create Task<br/>PUT: Update Task<br/>PATCH: Complete Task<br/>DELETE: Remove Task]
+            AdminRoute[admin.js<br/>/api/admin/*<br/>User Management<br/>Task Records<br/>System Stats]
+            AIRoute[ai-chat.js<br/>/api/ai-chat<br/>POST: Send Message<br/>Context Window: 10 msgs<br/>Gemini Integration]
+        end
+    end
+    
+    subgraph Database["Database Layer - SQLite"]
+        subgraph DBFile["studybalance.db"]
+            UsersTable[users<br/>id - PK<br/>email - unique<br/>password - hashed<br/>name<br/>role<br/>created_at]
+            CoursesTable[courses<br/>id - PK<br/>user_id - FK<br/>name<br/>color<br/>created_at]
+            TasksTable[tasks<br/>id - PK<br/>user_id - FK<br/>course_id - FK<br/>title<br/>description<br/>due_date<br/>priority<br/>status<br/>created_at]
+            TaskRecordsTable[task_records<br/>id - PK<br/>task_id - FK<br/>user_id - FK<br/>completed_at<br/>notes]
+        end
+        
+        subgraph DBConnection["Database Connection"]
+            DBJS[db.js<br/>SQLite3 Connection<br/>Schema Initialization<br/>Query Interface]
+        end
+    end
+    
+    subgraph External["External Services"]
+        GeminiAPI[Google Gemini API<br/>Model: gemini-2.5-flash<br/>Natural Language Processing<br/>Academic Support Responses<br/>Context-Aware Replies]
+    end
+    
+    AuthJS -->|POST /api/register<br/>POST /api/login| AuthRoute
+    DashJS -->|GET /api/courses<br/>GET /api/tasks| CourseRoute
+    DashJS -->|GET /api/tasks| TaskRoute
+    CourseJS -->|CRUD Operations| CourseRoute
+    TaskJS -->|CRUD Operations| TaskRoute
+    AIJS -->|POST /api/ai-chat<br/>+ JWT Token<br/>+ Conversation Context| AIRoute
+    ProfileJS -->|GET /api/user| AuthRoute
+    
+    ServerJS --> AuthMiddleware
+    ServerJS --> CORSMiddleware
+    ServerJS --> AuthRoute
+    ServerJS --> CourseRoute
+    ServerJS --> TaskRoute
+    ServerJS --> AdminRoute
+    ServerJS --> AIRoute
+    
+    AuthMiddleware -.->|Protects| CourseRoute
+    AuthMiddleware -.->|Protects| TaskRoute
+    AuthMiddleware -.->|Protects| AdminRoute
+    AuthMiddleware -.->|Protects| AIRoute
+    
+    AuthRoute -->|User CRUD| UsersTable
+    CourseRoute -->|Course CRUD| CoursesTable
+    TaskRoute -->|Task CRUD| TasksTable
+    TaskRoute -->|Task Records| TaskRecordsTable
+    AdminRoute -->|Admin Queries| UsersTable
+    AdminRoute -->|Admin Queries| TasksTable
+    
+    DBJS -.->|Manages| UsersTable
+    DBJS -.->|Manages| CoursesTable
+    DBJS -.->|Manages| TasksTable
+    DBJS -.->|Manages| TaskRecordsTable
+    
+    AIRoute -->|API Request<br/>+ System Prompt<br/>+ Conversation History| GeminiAPI
+    GeminiAPI -->|AI Response<br/>JSON Format| AIRoute
+    
+    AuthJS -.->|Store| JWT
+    AIJS -.->|Store/Retrieve| Conversations
+    
+    classDef frontend fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef backend fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef database fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    classDef external fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef storage fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    
+    class IndexHTML,LoginHTML,DashHTML,CourseHTML,TaskHTML,HeatmapHTML,ScenarioHTML,AIHTML,ProfileHTML,StyleCSS,MainJS,AuthJS,DashJS,CourseJS,TaskJS,HeatmapJS,ScenarioJS,AIJS,ProfileJS frontend
+    class ServerJS,ConfigJS,AuthMiddleware,CORSMiddleware,AuthRoute,CourseRoute,TaskRoute,AdminRoute,AIRoute backend
+    class UsersTable,CoursesTable,TasksTable,TaskRecordsTable,DBJS database
+    class GeminiAPI external
+    class JWT,Conversations storage

@@ -1,3 +1,4 @@
+
 # Campus Task Manager
 
 Campus Task Manager is a web application built for students to manage academic workload more effectively.  
@@ -48,8 +49,3 @@ Node.js and Express were used for backend logic and API handling, while SQLite w
 Google Gemini API was integrated to provide AI-based study support.
 
 ## Challenges Faced
-
-One of the main challenges was integrating the Gemini API correctly and ensuring the AI assistant responded naturally.
-Another challenge was maintaining consistent page design and handling conversation persistence in the AI support feature.
-
-

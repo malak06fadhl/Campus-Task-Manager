@@ -1,0 +1,133 @@
+flowchart TD
+    Start([User Opens AI Support]) --> LoadPage[Load AI Assistant Page]
+    LoadPage --> InitializeUI[Initialize Chat Interface]
+    InitializeUI --> LoadStorage[Load Conversations from localStorage]
+    LoadStorage --> CheckConversations{Conversations<br/>Exist?}
+    
+    CheckConversations -->|No| ShowEmpty[Show Empty State]
+    ShowEmpty --> CreateFirst[Auto-create First Conversation]
+    CreateFirst --> DisplayChat
+    
+    CheckConversations -->|Yes| DisplayList[Display Conversation List]
+    DisplayList --> UserChoice{User Action}
+    
+    UserChoice -->|New Chat| CreateNew[Create New Conversation]
+    CreateNew --> GenerateID[Generate UUID]
+    GenerateID --> InitConversation[Initialize Empty Messages Array]
+    InitConversation --> DisplayChat[Display Chat Interface]
+    
+    UserChoice -->|Select Existing| SelectConv[Select Conversation from List]
+    SelectConv --> LoadConvData[Load Conversation Data]
+    LoadConvData --> RenderMessages[Render Message History]
+    RenderMessages --> DisplayChat
+    
+    UserChoice -->|Delete Chat| ConfirmDelete{Confirm<br/>Deletion?}
+    ConfirmDelete -->|No| DisplayList
+    ConfirmDelete -->|Yes| RemoveFromStorage[Remove from localStorage]
+    RemoveFromStorage --> CheckRemaining{Other<br/>Conversations<br/>Exist?}
+    CheckRemaining -->|Yes| LoadMostRecent[Load Most Recent]
+    LoadMostRecent --> DisplayChat
+    CheckRemaining -->|No| ShowEmpty
+    
+    DisplayChat --> WaitInput[Wait for User Input]
+    WaitInput --> UserTypes[User Types Message]
+    UserTypes --> ClientValidation{Client-Side<br/>Validation}
+    
+    ClientValidation -->|Empty Message| ShowClientError[Show Error: Message Required]
+    ShowClientError --> WaitInput
+    
+    ClientValidation -->|Too Long| ShowLengthError[Show Error: Max 2000 chars]
+    ShowLengthError --> WaitInput
+    
+    ClientValidation -->|Valid| CreateUserMsg[Create User Message Object]
+    CreateUserMsg --> AddToConversation[Add to Conversation Array]
+    AddToConversation --> UpdateTitle{First<br/>Message?}
+    UpdateTitle -->|Yes| GenerateTitle[Generate Title from Message]
+    GenerateTitle --> SaveTitle[Update Conversation Title]
+    SaveTitle --> RenderUserMsg
+    UpdateTitle -->|No| RenderUserMsg[Render User Message in UI]
+    
+    RenderUserMsg --> ShowLoading[Display Loading Indicator]
+    ShowLoading --> ExtractContext[Extract Last 10 Messages]
+    ExtractContext --> PreparePayload[Prepare API Request Payload]
+    PreparePayload --> GetToken[Get JWT Token from Storage]
+    GetToken --> SendRequest[Send POST to /api/ai-chat]
+    
+    SendRequest --> BackendReceive[Backend Receives Request]
+    BackendReceive --> AuthMiddleware{JWT<br/>Authentication}
+    
+    AuthMiddleware -->|Invalid Token| Return401[Return 401 Unauthorized]
+    Return401 --> HandleAuthError[Frontend: Redirect to Login]
+    HandleAuthError --> End([End Session])
+    
+    AuthMiddleware -->|Valid| ExtractUser[Extract User ID from Token]
+    ExtractUser --> ValidatePayload{Validate<br/>Request Data}
+    
+    ValidatePayload -->|Missing conversationId| Return400A[Return 400: conversationId Required]
+    Return400A --> ShowError
+    
+    ValidatePayload -->|Invalid messages| Return400B[Return 400: Invalid Messages Array]
+    Return400B --> ShowError
+    
+    ValidatePayload -->|Empty messages| Return400C[Return 400: Messages Cannot Be Empty]
+    Return400C --> ShowError
+    
+    ValidatePayload -->|Invalid format| Return400D[Return 400: Invalid Message Format]
+    Return400D --> ShowError
+    
+    ValidatePayload -->|Valid| BuildPrompt[Build System Prompt]
+    BuildPrompt --> AddContext[Add Conversation History]
+    AddContext --> FormatMessages[Format Messages for Gemini]
+    FormatMessages --> PrepareGeminiRequest[Prepare Gemini API Request]
+    
+    PrepareGeminiRequest --> CallGemini[Call Gemini 2.5 Flash API]
+    CallGemini --> GeminiProcessing[Gemini Processes Request]
+    GeminiProcessing --> GeminiResponse{Gemini<br/>Response}
+    
+    GeminiResponse -->|API Error| GeminiError[Gemini Returns Error]
+    GeminiError --> LogError[Log Error Details]
+    LogError --> Return500[Return 500: AI Service Unavailable]
+    Return500 --> ShowError[Frontend: Display Error Message]
+    ShowError --> HideLoading[Hide Loading Indicator]
+    HideLoading --> WaitInput
+    
+    GeminiResponse -->|Success| ExtractText[Extract Response Text]
+    ExtractText --> ValidateResponse{Valid<br/>Response<br/>Structure?}
+    
+    ValidateResponse -->|Invalid| LogInvalid[Log Invalid Response]
+    LogInvalid --> Return500
+    
+    ValidateResponse -->|Valid| ReturnSuccess[Return 200 with Reply]
+    ReturnSuccess --> FrontendReceive[Frontend Receives Response]
+    FrontendReceive --> CreateAIMsg[Create Assistant Message Object]
+    CreateAIMsg --> AddAIToConversation[Add to Conversation Array]
+    AddAIToConversation --> UpdateTimestamp[Update Conversation Timestamp]
+    UpdateTimestamp --> SaveToStorage[Save to localStorage]
+    
+    SaveToStorage --> CheckLimit{Conversation<br/>Count > 50?}
+    CheckLimit -->|Yes| RemoveOldest[Remove Oldest Conversation]
+    RemoveOldest --> UpdateStorage[Update localStorage]
+    UpdateStorage --> RenderAIMsg
+    CheckLimit -->|No| RenderAIMsg[Render AI Message in UI]
+    
+    RenderAIMsg --> FormatResponse[Format Response with Markdown]
+    FormatResponse --> ScrollToBottom[Auto-scroll to Latest Message]
+    ScrollToBottom --> HideLoading
+    HideLoading --> UpdateList[Update Conversation List]
+    UpdateList --> WaitInput
+    
+    WaitInput --> UserExit{User<br/>Exits?}
+    UserExit -->|Continue Chat| UserTypes
+    UserExit -->|Close| SaveFinal[Final Save to localStorage]
+    SaveFinal --> End
+    
+    style Start fill:#e1f5e1
+    style LoadPage fill:#e3f2fd
+    style DisplayChat fill:#fff3e0
+    style SendRequest fill:#f3e5f5
+    style BackendReceive fill:#e8f5e9
+    style CallGemini fill:#fff9c4
+    style GeminiProcessing fill:#fce4ec
+    style ReturnSuccess fill:#e0f2f1
+    style SaveToStorage fill:#f1f8e9
+    style End fill:#ffebee

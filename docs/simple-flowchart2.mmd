@@ -1,0 +1,23 @@
+flowchart TD
+    Start([Start]) --> OpenAI[Open AI Support Page]
+    OpenAI --> TypeMsg[User Types Message]
+    TypeMsg --> SendFE[Frontend Sends Request to Backend]
+    SendFE --> Validate[Backend Validates Request]
+    Validate --> SendGemini[Backend Sends Prompt to Gemini API]
+    SendGemini --> GeminiResp[Gemini Returns Response]
+    GeminiResp --> BackendResp[Backend Returns Response to Frontend]
+    BackendResp --> ShowChat[Response Shown in Chat]
+    ShowChat --> SaveConv[Conversation Saved]
+    SaveConv --> End([End])
+    
+    style Start fill:#e1f5e1
+    style OpenAI fill:#e3f2fd
+    style TypeMsg fill:#fff3e0
+    style SendFE fill:#f3e5f5
+    style Validate fill:#e8f5e9
+    style SendGemini fill:#fff9c4
+    style GeminiResp fill:#fce4ec
+    style BackendResp fill:#e0f2f1
+    style ShowChat fill:#f1f8e9
+    style SaveConv fill:#e1f5e1
+    style End fill:#ffebee
