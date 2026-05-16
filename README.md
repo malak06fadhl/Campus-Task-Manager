@@ -1,15 +1,11 @@
 
 # Campus Task Manager
 
-Campus Task Manager is a web application built for students to manage academic workload more effectively.  
-It allows users to organize courses, manage tasks, view workload visually, and receive AI-based academic support.
-Campus Task Manager is the project concept and submission title. During development, I named the system StudyBalance as the working application name.
-## Tech Stack
-- Frontend: HTML, CSS, JavaScript
-- Backend: Node.js, Express.js
-- Database: SQLite
-- Authentication: JWT, bcrypt
-- AI Integration: Google Gemini API
+Campus Task Manager is a smart academic workload management web application developed to support university students in organizing their studies more effectively. The project was built to address a common problem faced by many students: handling multiple assignments, quizzes, projects, and deadlines at the same time without a clear system for prioritization and planning. Instead of relying on simple to-do lists, this application provides a more structured and student-centered environment where users can manage courses, create and track academic tasks, monitor workload patterns, and make better planning decisions.
+
+The system combines core productivity features with intelligent support tools. Students can organize tasks by course, assign priorities and deadlines, and view their workload through visual elements such as dashboards and workload heatmaps. In addition, the project includes an AI-powered study support assistant integrated with Google Gemini API, allowing students to receive guidance when they feel overwhelmed, unsure where to start, or in need of help with prioritizing their academic responsibilities. This makes the application not only a task manager, but also a practical academic support tool.
+
+From a technical perspective, the project was developed as a full-stack web application using HTML, CSS, and JavaScript for the frontend, with Node.js, Express.js, and SQLite for the backend and data management. Authentication is handled securely using JWT and bcrypt. Overall, Campus Task Manager aims to reduce academic stress, improve productivity, and provide students with a smarter and more interactive way to manage their university life.
 
 
 ## How to Run the Project
