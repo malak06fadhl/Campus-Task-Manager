@@ -22,8 +22,8 @@ npm install
 
 Create a .env file inside the backend folder and add:
 
-JWT_SECRET=your_jwt_secret_here
-GEMINI_API_KEY=your_gemini_api_key_here
+JWT_SECRET=studybalance-dev-secret-change-in-production
+GEMINI_API_KEY=AIzaSyAFqlYHXKEl-cFjMKoeUeClf6DuEWdqdrE
 PORT=3000
 
 ##  Start the backend server
