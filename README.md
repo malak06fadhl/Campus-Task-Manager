@@ -1,175 +1,233 @@
-# StudyBalance
+Please update and finalize my README.md file for my GitHub project.
 
-Smart Academic Workload Planning System — frontend web app with a Node.js + Express + SQLite backend.
+Project name:
+Campus Task Manager
 
----
+Important:
+I do NOT want a partial edit or a summary.
+I want you to fully rewrite the README into a clean, professional, GitHub-ready final version.
 
-## Project Structure
+Use the following content and structure exactly, but improve formatting where needed and make it look polished on GitHub.
 
-```
-studybalance/
-├── backend/
-│   ├── server.js        Express server entry point
-│   ├── db.js            SQLite database module (promisified helpers)
-│   ├── schema.sql       Database table definitions
-│   ├── seed.js          Demo data seeder
-│   ├── package.json     Backend dependencies
-│   └── .gitignore       Excludes node_modules and .db files
-├── css/
-│   └── style.css        Shared stylesheet for all pages
-├── html/
-│   ├── index.html       Landing page
-│   ├── login.html       Student login
-│   ├── register.html    Student registration
-│   ├── dashboard.html   Student dashboard
-│   ├── courses.html     Course management
-│   ├── task-management.html  Task management
-│   ├── heatmap.html     Workload heatmap
-│   ├── scenario.html    What-if scenario simulator
-│   ├── analytics.html   Analytics and charts
-│   ├── profile.html     Student profile
-│   ├── admin-login.html Admin login
-│   ├── admin-dashboard.html  Admin overview
-│   ├── manage-users.html     Admin: manage students
-│   └── manage-task-records.html  Admin: view all tasks
-└── js/
-    ├── main.js          Shared utilities, seed, auth guards
-    ├── auth.js          Login / register / admin login
-    ├── dashboard.js     Dashboard page logic
-    ├── courses.js       Courses CRUD
-    ├── tasks.js         Tasks CRUD
-    ├── heatmap.js       Heatmap calendar
-    ├── scenario.js      What-if simulator
-    ├── analytics.js     Analytics charts
-    ├── profile.js       Profile edit
-    └── admin.js         Admin pages
-```
+Requirements:
+- Keep it in professional English
+- Make it clean and portfolio-ready
+- Use proper Markdown formatting
+- Use headings, bullet points, and code blocks correctly
+- Keep it realistic and aligned with my actual project
+- Do not invent fake features or fake technologies
+- Do not leave placeholders like "yourusername" or "your name"
+- Use my actual GitHub username and project link
+- Use my actual name and email
+- Keep the AI support feature included
+- Make the README final and ready to upload
+
+Use this exact content as the base and improve it into a final README:
+
+# 📚 Campus Task Manager
+
+A student-focused web application that helps university students manage their academic workload, organize courses and tasks, visualize busy periods, and receive AI-powered study support.
 
 ---
 
-## Step 1 — Run the Backend
+## 📖 Overview
 
-### Prerequisites
+Campus Task Manager is designed to make academic planning easier and more practical for students. Instead of using a simple to-do list, students can manage their courses, track assignments and deadlines, visualize workload intensity, test planning scenarios, and get support from an AI assistant powered by Google Gemini.
 
-- Node.js 18 or newer — https://nodejs.org
-- npm (comes with Node.js)
+The goal of the project is to reduce academic stress and help students stay organized, productive, and better prepared for deadlines.
 
-### Install dependencies
+---
 
-```bash
+## ✨ Key Features
+
+- **User Authentication**
+  - Student login and registration
+  - Secure authentication using JWT
+  - Password hashing with bcrypt
+
+- **Dashboard**
+  - Academic overview
+  - Quick summary of tasks and progress
+  - Easy navigation to main modules
+
+- **Course Management**
+  - Add, edit, and delete courses
+  - Organize tasks by course
+  - Manage academic subjects in one place
+
+- **Task Management**
+  - Add, edit, and delete tasks
+  - Set deadlines, priorities, and status
+  - Track pending and completed work
+
+- **Academic Heatmap**
+  - Visual representation of workload distribution
+  - Helps students identify busy periods
+
+- **What-If Scenario Simulator**
+  - Test different task planning scenarios
+  - Explore how schedule changes affect workload
+
+- **AI Study Support Assistant**
+  - Powered by **Google Gemini API**
+  - Natural conversational support for students
+  - Helps students organize their thoughts, manage stress, and prioritize tasks
+  - Conversation history is saved locally for continuity
+
+- **Profile Page**
+  - Manage student profile information
+  - Edit account details
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+
+### Backend
+- Node.js
+- Express.js
+- SQLite
+
+### Authentication & Security
+- JWT
+- bcrypt
+
+### AI Integration
+- Google Gemini API
+
+---
+
+🚀 How to Run the Project
+1. Clone the Repository
+git clone https://github.com/malak06fadhl/Campus-Task-Manager.git
+cd Campus-Task-Manager
+2. Install Backend Dependencies
 cd backend
 npm install
-```
+3. Configure Environment Variables
 
-### Seed the database with demo data
+Create a .env file inside the backend folder and add:
 
-```bash
+JWT_SECRET=your_jwt_secret_here
+GEMINI_API_KEY=your_gemini_api_key_here
+PORT=3000
+4. Seed the Database (Optional)
 node seed.js
-```
+5. Start the Backend Server
+npm start
 
-This creates `backend/studybalance.db` and inserts demo users, courses, and tasks.
-Safe to re-run — existing rows are never overwritten.
+The backend should run at:
 
-### Start the server
+http://localhost:3000
+6. Open the Frontend
+
+Open html/index.html using a browser or a local server such as Live Server in VS Code.
+
+🤖 AI Study Support Assistant
+
+One of the main features of this project is the AI Study Support Assistant.
+
+The assistant is integrated using Google Gemini API and is designed to support students in a natural and practical way.
+
+What it does
+Responds to students in a conversational style
+Helps students organize academic stress and workload
+Suggests what to do first
+Supports task prioritization
+Saves previous conversations for continuity
+Example use cases
+“I have 3 assignments this week and I feel stressed.”
+“I don’t know where to start with my project.”
+“I have a quiz tomorrow.”
+
+The AI assistant then gives guidance based on the student’s message.
+
+🎯 Main Modules
+Student Side
+Landing Page
+Login / Register
+Dashboard
+Courses
+Tasks
+Heatmap
+What-If Scenario
+AI Support
+Profile
+Admin Side
+Admin Login
+Admin Dashboard
+Manage Users
+Manage Task Records
+🔮 Future Improvements
+Add deadline notifications and reminders
+Add calendar integration
+Store AI conversations in the database instead of localStorage
+Improve mobile responsiveness further
+Add dark mode
+Add analytics and reports
+Add export functionality for tasks and summaries
+
+👩‍💻 Author
+
+Malak Fadhl Ghaleb
+
+GitHub: malak06fadhl
+LinkedIn: Malak Fadhl Ghaleb
+Email: malakghaleb44@gmail.com
+
+
+## 📁 Project Structure
 
 ```bash
-node server.js
-```
+studybalance/
+├── backend/
+│   ├── routes/
+│   │   ├── auth.js
+│   │   ├── courses.js
+│   │   ├── tasks.js
+│   │   ├── admin.js
+│   │   └── ai-chat.js
+│   ├── middleware/
+│   │   └── auth.js
+│   ├── server.js
+│   ├── db.js
+│   ├── config.js
+│   ├── schema.sql
+│   ├── seed.js
+│   ├── package.json
+│   └── .env
+├── html/
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   ├── courses.html
+│   ├── task-management.html
+│   ├── heatmap.html
+│   ├── scenario.html
+│   ├── ai-assistant.html
+│   ├── profile.html
+│   ├── admin-login.html
+│   ├── admin-dashboard.html
+│   ├── manage-users.html
+│   └── manage-task-records.html
+├── js/
+│   ├── main.js
+│   ├── auth.js
+│   ├── dashboard.js
+│   ├── courses.js
+│   ├── tasks.js
+│   ├── heatmap.js
+│   ├── scenario.js
+│   ├── ai-assistant.js
+│   ├── profile.js
+│   └── admin.js
+├── css/
+│   └── style.css
+└── README.md
 
-The API will be available at: **http://localhost:3000**
-
-Health check: http://localhost:3000/api/health
-
----
-
-## Open the Frontend
-
-Open any HTML file directly in your browser:
-
-```
-html/index.html       ← start here
-```
-
-No local web server is required for the frontend at this stage.
-
----
-
-## Demo Login Credentials
-
-### Student accounts
-
-| Name | Email | Password |
-|---|---|---|
-| Alex Johnson | alex@email.com | pass123 |
-| John Doe | john@email.com | pass123 |
-
-### Admin account
-
-| Email | Password |
-|---|---|
-| admin@studybalance.com | admin123 |
-
----
-
-## API Endpoints (Step 1 — health check only)
-
-| Method | URL | Description |
-|---|---|---|
-| GET | /api/health | Server health check |
-
-More routes will be added in Steps 2–7.
-
----
-
-## Migration Steps
-
-| Step | What gets built |
-|---|---|
-| ✅ Step 1 | Backend folder, database, schema, seed |
-| Step 2 | Auth API — POST /api/register, POST /api/login |
-| Step 3 | Connect login/register pages to API |
-| Step 4 | Courses API + connect courses.js |
-| Step 5 | Tasks API + connect tasks.js |
-| Step 6 | Connect dashboard, analytics, heatmap, scenario |
-| Step 7 | Admin API + connect admin.js |
-
----
-
-## Database Schema
-
-### users
-| Column | Type | Notes |
-|---|---|---|
-| id | TEXT | UUID primary key |
-| full_name | TEXT | |
-| email | TEXT | Unique, case-insensitive |
-| password_hash | TEXT | bcrypt hash |
-| role | TEXT | 'student' or 'admin' |
-| banned | INTEGER | 0 = active, 1 = banned |
-| created_at | TEXT | ISO timestamp |
-
-### courses
-| Column | Type | Notes |
-|---|---|---|
-| id | TEXT | UUID primary key |
-| user_id | TEXT | FK → users.id |
-| name | TEXT | |
-| code | TEXT | |
-| instructor | TEXT | |
-| credits | INTEGER | 1–12 |
-| progress | INTEGER | 0–100 |
-| created_at | TEXT | |
-
-### tasks
-| Column | Type | Notes |
-|---|---|---|
-| id | TEXT | UUID primary key |
-| user_id | TEXT | FK → users.id |
-| course_id | TEXT | FK → courses.id (nullable) |
-| course_name | TEXT | Denormalised for display |
-| title | TEXT | |
-| description | TEXT | |
-| priority | TEXT | 'high', 'medium', 'low' |
-| status | TEXT | 'pending', 'inprogress', 'completed' |
-| deadline | TEXT | YYYY-MM-DD |
-| created_at | TEXT | |
+'''
